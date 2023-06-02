@@ -1,8 +1,8 @@
 package ru.mirea.tsybulko.yandexdriver
 
 import android.Manifest
+import android.R
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -19,6 +19,7 @@ import com.yandex.mapkit.map.CameraPosition
 import com.yandex.mapkit.map.MapObjectCollection
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.runtime.Error
+import com.yandex.runtime.image.ImageProvider
 import com.yandex.runtime.network.NetworkError
 import com.yandex.runtime.network.RemoteError
 import ru.mirea.tsybulko.yandexdriver.databinding.ActivityMainBinding
@@ -32,6 +33,8 @@ class MainActivity : AppCompatActivity(), DrivingSession.DrivingRouteListener {
     companion object {
         val ROUTE_END_LOCATION: Point = Point(55.772151, 37.619540) // ra'men
         val COLORS = intArrayOf(-0x10000, -0xff0100, 0x00FFBBBB, -0xffff01)
+
+        const val endLocationDescription = "The best ramen ever. From 12:00 to 00:00 every day"
     }
 
     private lateinit var mapView: MapView
@@ -101,6 +104,16 @@ class MainActivity : AppCompatActivity(), DrivingSession.DrivingRouteListener {
             requestPoints, drivingOptions,
             vehicleOptions, this
         )
+
+        // create marker
+        mapView.map.mapObjects.addPlacemark(
+            ROUTE_END_LOCATION
+        ).apply {
+            addTapListener { mapObject, point ->
+                Toast.makeText(application, endLocationDescription, Toast.LENGTH_SHORT).show()
+                true
+            }
+        }
     }
 
     private fun checkPermissions(): Boolean {
