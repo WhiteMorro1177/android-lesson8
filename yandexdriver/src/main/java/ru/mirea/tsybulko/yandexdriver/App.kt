@@ -1,4 +1,4 @@
-package ru.mirea.tsybulko.lesson8
+package ru.mirea.tsybulko.yandexdriver
 
 import android.app.Application
 import com.yandex.mapkit.MapKitFactory

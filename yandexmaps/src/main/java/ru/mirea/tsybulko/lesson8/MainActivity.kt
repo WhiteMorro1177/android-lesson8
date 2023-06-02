@@ -9,11 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
-import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
-import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.layers.ObjectEvent
-import com.yandex.mapkit.map.CameraPosition
 import com.yandex.mapkit.map.CompositeIcon
 import com.yandex.mapkit.map.IconStyle
 import com.yandex.mapkit.map.RotationType
@@ -37,8 +34,8 @@ class MainActivity : AppCompatActivity(), UserLocationObjectListener {
         setContentView(binding.root)
 
         mapView = binding.mapView
-        // check permissions
 
+        // check permissions
         if (!checkPermissions()) {
             requestPermissions()
         }
@@ -115,14 +112,12 @@ class MainActivity : AppCompatActivity(), UserLocationObjectListener {
             PointF((mapView.width * 0.5).toFloat(), (mapView.height * 0.83).toFloat())
         )
 
-        // При определении направления движения устанавливается следующая иконка
         userLocationView.arrow.setIcon(
             ImageProvider.fromResource(
                 this, R.drawable.arrow_up_float
             )
         )
 
-        // При получении координат местоположения устанавливается следующая иконка
         val pinIcon: CompositeIcon = userLocationView.pin.useCompositeIcon()
         pinIcon.setIcon(
             "pin",
